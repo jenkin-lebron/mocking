@@ -20,7 +20,6 @@ public class InOrderParkingStrategy implements ParkingStrategy {
 			parkingLot.getParkedCars().add(car);
 			return createReceipt(parkingLot, car);
 		}
-		
 		return createNoSpaceReceipt(car);
 	}
 
