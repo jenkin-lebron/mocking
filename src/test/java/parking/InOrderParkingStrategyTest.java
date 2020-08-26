@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static parking.ParkingStrategy.NO_PARKING_LOT;
 
 public class InOrderParkingStrategyTest {
 
@@ -36,7 +37,17 @@ public class InOrderParkingStrategyTest {
 
         /* Exercise 1, Write a test case on InOrderParkingStrategy.createNoSpaceReceipt()
          * With using Mockito to mock the input parameter */
+        Car car = mock(Car.class);
+        when(car.getName()).thenReturn("Lebron");
 
+        Receipt expectReceipt = new Receipt();
+        expectReceipt.setCarName("Lebron");
+        expectReceipt.setParkingLotName(NO_PARKING_LOT);
+
+        InOrderParkingStrategy inOrderParkingStrategy = new InOrderParkingStrategy();
+        Receipt resultReceipt = inOrderParkingStrategy.createNoSpaceReceipt(car);
+
+        Assert.assertEquals(resultReceipt,expectReceipt);
     }
 
     @Test
