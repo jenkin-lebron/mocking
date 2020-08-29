@@ -3,6 +3,8 @@ package parking;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -12,6 +14,10 @@ import static org.mockito.Mockito.*;
 import static parking.ParkingStrategy.NO_PARKING_LOT;
 @RunWith(MockitoJUnitRunner.class)
 public class VipParkingStrategyTest {
+    @Mock
+    CarDao carDao;
+    @InjectMocks
+    VipParkingStrategy vipParkingStrategy;
 
 	@Test
     public void testPark_givenAVipCarAndAFullParkingLog_thenGiveAReceiptWithCarNameAndParkingLotName() {
@@ -20,7 +26,7 @@ public class VipParkingStrategyTest {
 	    * With using Mockito spy, verify and doReturn */
       //given
       VipParkingStrategy vipParkingStrategy = spy(new VipParkingStrategy());
-      Car car = new Car("Jenkin");
+      Car car = new Car("JenkinA");
       ParkingLot spyParkingLot = spy(new ParkingLot("Jenkin", 10));
       List<ParkingLot> parkingLots = new ArrayList<>();
       parkingLots.add(spyParkingLot);
@@ -43,7 +49,7 @@ public class VipParkingStrategyTest {
          * With using Mockito spy, verify and doReturn */
         //given
         VipParkingStrategy vipParkingStrategy = spy(new VipParkingStrategy());
-        Car car = new Car("Jenkin");
+        Car car = new Car("JenkinA");
         ParkingLot spyParkingLot = spy(new ParkingLot("Jenkin", 10));
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(spyParkingLot);
@@ -66,6 +72,13 @@ public class VipParkingStrategyTest {
          * You may refactor the code, or try to use
          * use @RunWith(MockitoJUnitRunner.class), @Mock (use Mockito, not PowerMock) and @InjectMocks
          */
+        //given
+        Car car = new Car("JenkinA");
+        when(carDao.isVip(car.getName())).thenReturn(true);
+        //when
+        boolean result = vipParkingStrategy.isAllowOverPark(car);
+        //then
+        Assert.assertEquals(result,true);
     }
 
     @Test
