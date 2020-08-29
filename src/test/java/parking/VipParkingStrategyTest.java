@@ -31,7 +31,7 @@ public class VipParkingStrategyTest {
       List<ParkingLot> parkingLots = new ArrayList<>();
       parkingLots.add(spyParkingLot);
       Receipt expectReceipt = new Receipt();
-      expectReceipt.setCarName("Jenkin");
+      expectReceipt.setCarName("JenkinA");
       expectReceipt.setParkingLotName("Jenkin");
       //when
       when(spyParkingLot.isFull()).thenReturn(true);
@@ -54,7 +54,7 @@ public class VipParkingStrategyTest {
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(spyParkingLot);
         Receipt expectReceipt = new Receipt();
-        expectReceipt.setCarName("Jenkin");
+        expectReceipt.setCarName("JenkinA");
         expectReceipt.setParkingLotName(NO_PARKING_LOT);
         //when
         when(spyParkingLot.isFull()).thenReturn(true);
