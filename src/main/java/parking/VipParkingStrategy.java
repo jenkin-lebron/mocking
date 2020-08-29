@@ -50,7 +50,6 @@ public class VipParkingStrategy implements ParkingStrategy {
 		return carDao.isVip(car.getName()) && StringUtils.contains(car.getName(), "A");
 	}
 
-	@Override
 	public Integer calculateHourlyPrice() {
 		return ParkingLot.getBasicHourlyPrice() * 2;
 	}

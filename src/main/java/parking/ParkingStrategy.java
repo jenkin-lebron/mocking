@@ -9,5 +9,4 @@ public interface ParkingStrategy {
 	Receipt park(List<ParkingLot> parkingLots, Car car);
 
 	Integer calculateHourlyPrice();
-
 }

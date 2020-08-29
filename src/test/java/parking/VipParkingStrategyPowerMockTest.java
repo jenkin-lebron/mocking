@@ -1,9 +1,24 @@
 package parking;
 
+import mocking.MessageService;
+import mocking.MessageUtil;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Calendar;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(value = {ParkingLot.class})
 public class VipParkingStrategyPowerMockTest {
 
     @Test
@@ -11,7 +26,16 @@ public class VipParkingStrategyPowerMockTest {
 
         /* Exercise 6: Write test case for VipParkingStrategy calculateHourlyPrice
         * by using PowerMock to mock static method */
-
+        //given
+        mockStatic(ParkingLot.class);
+        VipParkingStrategy vipParkingStrategy = new VipParkingStrategy();
+        //when
+        when(ParkingLot.getBasicHourlyPrice()).thenReturn(25);
+        Integer result = vipParkingStrategy.calculateHourlyPrice();
+        //then
+        assertEquals(result,new Integer(50));
+        verifyStatic(times(1));
+        ParkingLot.getBasicHourlyPrice();
     }
 
     @Test
