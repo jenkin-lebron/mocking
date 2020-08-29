@@ -1,9 +1,16 @@
 package parking;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
-
+import static parking.ParkingStrategy.NO_PARKING_LOT;
+@RunWith(MockitoJUnitRunner.class)
 public class VipParkingStrategyTest {
 
 	@Test
@@ -11,7 +18,22 @@ public class VipParkingStrategyTest {
 
 	    /* Exercise 4, Write a test case on VipParkingStrategy.park()
 	    * With using Mockito spy, verify and doReturn */
-
+      //given
+      VipParkingStrategy vipParkingStrategy = spy(new VipParkingStrategy());
+      Car car = new Car("Jenkin");
+      ParkingLot spyParkingLot = spy(new ParkingLot("Jenkin", 10));
+      List<ParkingLot> parkingLots = new ArrayList<>();
+      parkingLots.add(spyParkingLot);
+      Receipt expectReceipt = new Receipt();
+      expectReceipt.setCarName("Jenkin");
+      expectReceipt.setParkingLotName("Jenkin");
+      //when
+      when(spyParkingLot.isFull()).thenReturn(true);
+      when(vipParkingStrategy.isAllowOverPark(car)).thenReturn(true);
+      Receipt resultReceipt = vipParkingStrategy.park(parkingLots,car);
+      //then
+      verify(vipParkingStrategy, times(1)).isAllowOverPark(car);
+      Assert.assertEquals(resultReceipt, expectReceipt);
     }
 
     @Test
